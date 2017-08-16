@@ -10,3 +10,4 @@ while True:
     except:
         print('Bad' * 8)
 print('Bye')
+
