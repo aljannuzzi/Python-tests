@@ -2,7 +2,6 @@
 
 import requests
 
-
 page = requests.get('http://www.beatlesinterviews.org/index2.html')
 
 if page.status_code == requests.codes.ok:
