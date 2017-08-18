@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+Songs = {}
 
 page = requests.get('http://www.beatlesinterviews.org/index2.html')
 
@@ -14,7 +15,9 @@ if page.status_code == requests.codes.ok:
     i=0
     for item in page_soup.find_all(text=re.compile("^[A-Z]{3,100}")):
        if i > 1:
-         print (item)
+         for musics in item.next_elements:
+           print (musics)
+         Songs[item]={}
        i=i+1
 
 else:
