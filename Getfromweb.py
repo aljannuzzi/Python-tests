@@ -18,16 +18,20 @@ if page.status_code == requests.codes.ok:
          Songs[item] = []
          for musics_raw in item.next_elements:
             print (musics_raw)
-#           musics_raw1 = re.sub(r".*br.*$", "", str(musics_raw))
-#           musics_raw2 = re.sub(r".*INCLUD.*", "", str(musics_raw1))
-#           musics_raw3 = re.sub(r".*<.*", "", str(musics_raw2))
-#           musics_raw4 = re.sub(r"^$", "", str(musics_raw3))
-#           musics_raw5 = re.sub(r"\n", "", musics_raw4)
-#           musics_raw6 = re.sub(r"Editable", "", musics_raw5)
+            musics_raw1 = re.sub(r".*br.*$", "", str(musics_raw))
+            musics_raw2 = re.sub(r".*INCLUD.*", "", str(musics_raw1))
+            musics_raw3 = re.sub(r".*<.*", "", str(musics_raw2))
+            musics_raw4 = re.sub(r"^$", "", str(musics_raw3))
+            musics_raw5 = re.sub(r"\n", "", musics_raw4)
+            musics_raw6 = re.sub(r"Editable", "", musics_raw5)
           
-#           if musics_raw6:
-#                 print (musics_raw6)
-#                 Songs[item].append(musics_raw6)
+            if musics_raw6:
+                  pattern = re.compile("^[A-Z]{3,100}")
+                  if pattern.match(musics_raw6):
+                     Songs[musics_raw6] = []
+                     break   
+                  else:   
+                     Songs[item].append(musics_raw6)
        i=i+1
            
 #    print (Songs)   
