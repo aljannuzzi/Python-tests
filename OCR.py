@@ -47,8 +47,8 @@ try:
 
     # 'data' contains the JSON data. The following formats the JSON data for display.
     parsed = json.loads(data)
-    print ("Response:")
-    print (json.dumps(parsed, sort_keys=True, indent=2))
+    #print ("Response:")
+    #print (json.dumps(parsed, sort_keys=True, indent=2))
 
     D = eval(str(json.dumps(parsed, sort_keys=True, indent=2)))
     
