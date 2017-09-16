@@ -10,7 +10,7 @@ try:
 
 except:
     print("Usage:" + sys.argv[0] + " <URL of image to analyze")
-    sys.exit("Terminating due to lack of required parameters")
+#    sys.exit("Terminating due to lack of required parameters")
 
 appConfig = configparser.ConfigParser()
 appConfig.read("out/settings.ini")
@@ -30,8 +30,8 @@ params = urllib.parse.urlencode({
 })
 
 
-#body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/1/12/Broadway_and_Times_Square_by_night.jpg'}"
-body = "{'url':'" + imagepath + "'}"
+body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/1/12/Broadway_and_Times_Square_by_night.jpg'}"
+#body = "{'url':'" + imagepath + "'}"
 
 try:
     conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
