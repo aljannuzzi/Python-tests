@@ -1,6 +1,7 @@
 #!/usr/bin/python3.6
 
 import http.client, urllib.request, urllib.parse, urllib.error, base64, json
+import requests
 import configparser
 import sys
 from xml.etree import ElementTree
@@ -10,6 +11,7 @@ appConfig.read("out/settings.ini")
 
 subscription_key = appConfig.get("vision", "key")
 subscription_key_speech = appConfig.get("speech", "key")
+subscription_key_translation = appConfig.get("translation", "key")
 
 uri_base = 'westus.api.cognitive.microsoft.com'
 
@@ -56,7 +58,7 @@ def ReadTextFromImage(URLImagePath):
         print(e)
         return False
 
-def GetAudioFromText(text2narrate, audiofileoutput):
+def GetAudioFromText(text2narrate, Language, VoiceStyle, audiofileoutput):
     params_speech = ""
     headers_speech = {"Ocp-Apim-Subscription-Key": subscription_key_speech}
 
@@ -74,11 +76,12 @@ def GetAudioFromText(text2narrate, audiofileoutput):
 
         # Compose body and set the text2speech
         body = ElementTree.Element('speak', version='1.0')
-        body.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-us')
+        body.set('{http://www.w3.org/XML/1998/namespace}lang', Language)
         voice = ElementTree.SubElement(body, 'voice')
-        voice.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-US')
+        voice.set('{http://www.w3.org/XML/1998/namespace}lang', Language)
         voice.set('{http://www.w3.org/XML/1998/namespace}gender', 'Female')
-        voice.set('name', 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)')
+      #  tosetvoice = 'Microsoft Server Speech Text to Speech Voice (' + Language + ',' + Style + ')'
+        voice.set('name', VoiceStyle)
         voice.text = text2narrate
 
         # Set the headers
@@ -111,6 +114,15 @@ def GetAudioFromText(text2narrate, audiofileoutput):
 
         return False
 
+def Translate(Text2Translate, TargetLanguage):
+    request_headers = {'Ocp-Apim-Subscription-Key': subscription_key_translation}
+    translateUrl = "http://api.microsofttranslator.com/v2/Http.svc/Translate?text={}&to={}".format(Text2Translate, TargetLanguage)
+    translationData = requests.get(translateUrl, headers = request_headers)
+    translation = ElementTree.fromstring(translationData.text.encode('utf-8'))
+
+    return translation.text
+
+
 
 # Begining of the main body. Uhmm, missing main() :-)
 
@@ -118,5 +130,7 @@ text2read = ReadTextFromImage('http://www.funpedia.net/imgs/may11/very-funny-sig
 print (text2read)
 
 if text2read:
-    GetAudioFromText(text2read, 'saida.audio')
+    Translation2pt = Translate(text2read, 'pt')
+    print(Translation2pt)
+    GetAudioFromText(Translation2pt, 'en-US', 'Microsoft Server Speech Text to Speech Voice (pt-BR, HeloisaRUS)', 'saida.audio')
 
