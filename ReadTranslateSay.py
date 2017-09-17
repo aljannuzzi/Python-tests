@@ -41,10 +41,11 @@ def ReadTextFromImage(URLImagePath):
         
         textout = ""
 
-        for i in (range(len(D["regions"][0]["lines"]))):
-            for j in range(len(D["regions"][0]["lines"][i]["words"])):
-                # print ((D["regions"][0]["lines"][i]["words"][j]["text"]), end=' ')
-                textout = textout + " " + D["regions"][0]["lines"][i]["words"][j]["text"]
+        for a in (range(len(D["regions"]))):
+            for i in (range(len(D["regions"][a]["lines"]))):
+                for j in range(len(D["regions"][a]["lines"][i]["words"])):
+                    # print ((D["regions"][0]["lines"][i]["words"][j]["text"]), end=' ')
+                        textout = textout + " " + D["regions"][a]["lines"][i]["words"][j]["text"]
 
         conn.close()
 
