@@ -114,7 +114,7 @@ def GetAudioFromText(text2narrate, audiofileoutput):
 
 # Begining of the main body. Uhmm, missing main() :-)
 
-text2read = ReadTextFromImage('http://www.dumpaday.com/wp-content/uploads/2013/01/funny-bar-signs.jpg')
+text2read = ReadTextFromImage('http://www.funpedia.net/imgs/may11/very-funny-signs-01.jpg')
 print (text2read)
 
 if text2read:
