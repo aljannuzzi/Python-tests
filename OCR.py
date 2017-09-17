@@ -34,7 +34,11 @@ params = urllib.parse.urlencode({
 })
 
 # The URL of a JPEG image containing text.
-body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Atomist_quote_from_Democritus.png/338px-Atomist_quote_from_Democritus.png'}"
+#body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Atomist_quote_from_Democritus.png/338px-Atomist_quote_from_Democritus.png'}"
+
+body = "{'url':'https://www.askideas.com/media/13/Very-Funny-Safety-Sign-Image.png'}"
+
+
 
 #body = "{'url':'" + imagepath + "'}"
 
@@ -51,8 +55,6 @@ try:
     #print (json.dumps(parsed, sort_keys=True, indent=2))
 
     D = eval(str(json.dumps(parsed, sort_keys=True, indent=2)))
-    
-    print(D["regions"][0]["lines"])
 
     for i in (range(len(D["regions"][0]["lines"]))):
         for j in range(len(D["regions"][0]["lines"][i]["words"])):
